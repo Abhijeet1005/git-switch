@@ -15,6 +15,17 @@ class AccountSwitcherApp:
 
         self.setup_ui()
 
+    def load_accounts(self):
+        try:
+            with open(ACCOUNTS_FILE, "r") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return []
+
+    def save_accounts(self):
+        with open(ACCOUNTS_FILE, "w") as f:
+            json.dump(self.accounts, f, indent=4)
+
 def main():
     root = tk.Tk()
     app = AccountSwitcherApp(root)
